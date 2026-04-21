@@ -53,10 +53,13 @@ Edit `~/.cursor/mcp.json`:
 ### Claude Code (CLI)
 
 ```bash
-claude mcp add dovilo \
-  --env DOVILO_API_KEY=<API_KEY> \
-  -- npx -y @dovilo-app/mcp@latest
+npm install -g @dovilo-app/mcp
+claude mcp add dovilo dovilo-mcp -e DOVILO_API_KEY=<API_KEY>
 ```
+
+> Two lines: first installs the bridge globally (one-time; same binary is reused by every AI you connect). Second registers it with Claude Code. If you already installed the package, skip the first line.
+>
+> **Why not `npx`?** Claude CLI's current argument parser has quirks with variadic `-e` flags and the `--` separator — subprocess flags like `-y` get swallowed. Using the globally-installed `dovilo-mcp` bin avoids this entirely.
 
 ### Claude Desktop
 
@@ -79,26 +82,25 @@ Edit:
 ### Cursor CLI
 
 ```bash
-cursor-cli mcp add dovilo \
-  --env DOVILO_API_KEY=<API_KEY> \
-  -- npx -y @dovilo-app/mcp@latest
+npm install -g @dovilo-app/mcp
+cursor-cli mcp add dovilo dovilo-mcp -e DOVILO_API_KEY=<API_KEY>
 ```
 
 ### Codex CLI
 
 ```bash
-codex mcp add dovilo \
-  --env DOVILO_API_KEY=<API_KEY> \
-  -- npx -y @dovilo-app/mcp@latest
+npm install -g @dovilo-app/mcp
+codex mcp add dovilo dovilo-mcp -e DOVILO_API_KEY=<API_KEY>
 ```
 
 ### Gemini CLI
 
 ```bash
-gemini mcp add dovilo \
-  -e DOVILO_API_KEY=<API_KEY> \
-  -- npx -y @dovilo-app/mcp@latest
+npm install -g @dovilo-app/mcp
+gemini mcp add dovilo dovilo-mcp -e DOVILO_API_KEY=<API_KEY>
 ```
+
+> All three CLIs share a similar `mcp add` command structure. If a subcommand errors with an unknown-argument message, your installed CLI version may parse flags differently — in that case, fall back to editing its MCP config file directly (each CLI documents its own config path).
 
 ### Windsurf
 
