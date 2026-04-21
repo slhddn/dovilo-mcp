@@ -1,0 +1,52 @@
+{
+  "name": "@dovilo/mcp",
+  "version": "0.1.0",
+  "description": "Model Context Protocol (MCP) bridge for Dovilo Desktop. Lets Cursor, Claude Code, Claude Desktop, and other AI agents run queued tasks from the Dovilo desktop app.",
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "dovilo",
+    "ai",
+    "agent",
+    "claude",
+    "cursor"
+  ],
+  "homepage": "https://github.com/slhddn/dovilo-mcp#readme",
+  "bugs": {
+    "url": "https://github.com/slhddn/dovilo-mcp/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/slhddn/dovilo-mcp.git"
+  },
+  "license": "MIT",
+  "author": "Dovilo",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "dovilo-mcp": "dist/index.js"
+  },
+  "files": [
+    "dist/",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run build",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/node": "^22.15.0",
+    "typescript": "^5.9.0"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  }
+}

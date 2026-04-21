@@ -1,0 +1,9 @@
+src/
+tsconfig.json
+.github/
+.eslintrc*
+eslint.config.*
+*.test.ts
+*.spec.ts
+node_modules/
+.env*
