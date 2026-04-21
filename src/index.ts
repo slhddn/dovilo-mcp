@@ -12,16 +12,16 @@ import {
 } from './errors.js';
 
 /**
- * @dovilo/mcp — MCP stdio bridge for Dovilo Desktop.
+ * @dovilo-app/mcp — MCP stdio bridge for Dovilo Desktop.
  *
  * The AI agent (Claude Code / Cursor / Claude Desktop / etc.) launches this
- * binary via `npx -y @dovilo/mcp@latest` with a `DOVILO_API_KEY` env var. Each
+ * binary via `npx -y @dovilo-app/mcp@latest` with a `DOVILO_API_KEY` env var. Each
  * stdin line is forwarded to the desktop's local HTTP MCP server and the
  * response is written back to stdout. Nothing sensitive is handled here.
  */
 
 function fatal(message: string, exitCode: number): never {
-  process.stderr.write(`[@dovilo/mcp] ${message}\n`);
+  process.stderr.write(`[@dovilo-app/mcp] ${message}\n`);
   process.exit(exitCode);
 }
 
@@ -77,7 +77,7 @@ async function main(): Promise<void> {
         };
         process.stdout.write(JSON.stringify(envelope) + '\n');
       } catch {
-        process.stderr.write(`[@dovilo/mcp] ${message}\n`);
+        process.stderr.write(`[@dovilo-app/mcp] ${message}\n`);
       }
     }
   }

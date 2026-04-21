@@ -1,4 +1,4 @@
-# @dovilo/mcp
+# @dovilo-app/mcp
 
 Model Context Protocol (MCP) bridge for [Dovilo Desktop](https://dovilo.app).
 
@@ -43,7 +43,7 @@ Edit `~/.cursor/mcp.json`:
   "mcpServers": {
     "dovilo": {
       "command": "npx",
-      "args": ["-y", "@dovilo/mcp@latest"],
+      "args": ["-y", "@dovilo-app/mcp@latest"],
       "env": { "DOVILO_API_KEY": "<API_KEY>" }
     }
   }
@@ -55,7 +55,7 @@ Edit `~/.cursor/mcp.json`:
 ```bash
 claude mcp add dovilo \
   --env DOVILO_API_KEY=<API_KEY> \
-  -- npx -y @dovilo/mcp@latest
+  -- npx -y @dovilo-app/mcp@latest
 ```
 
 ### Claude Desktop
@@ -69,7 +69,7 @@ Edit:
   "mcpServers": {
     "dovilo": {
       "command": "npx",
-      "args": ["-y", "@dovilo/mcp@latest"],
+      "args": ["-y", "@dovilo-app/mcp@latest"],
       "env": { "DOVILO_API_KEY": "<API_KEY>" }
     }
   }
@@ -81,7 +81,7 @@ Edit:
 ```bash
 cursor-cli mcp add dovilo \
   --env DOVILO_API_KEY=<API_KEY> \
-  -- npx -y @dovilo/mcp@latest
+  -- npx -y @dovilo-app/mcp@latest
 ```
 
 ### Codex CLI
@@ -89,7 +89,7 @@ cursor-cli mcp add dovilo \
 ```bash
 codex mcp add dovilo \
   --env DOVILO_API_KEY=<API_KEY> \
-  -- npx -y @dovilo/mcp@latest
+  -- npx -y @dovilo-app/mcp@latest
 ```
 
 ### Gemini CLI
@@ -97,7 +97,7 @@ codex mcp add dovilo \
 ```bash
 gemini mcp add dovilo \
   -e DOVILO_API_KEY=<API_KEY> \
-  -- npx -y @dovilo/mcp@latest
+  -- npx -y @dovilo-app/mcp@latest
 ```
 
 ### Windsurf
@@ -108,7 +108,7 @@ Settings → MCP Servers:
 {
   "name": "dovilo",
   "command": "npx",
-  "args": ["-y", "@dovilo/mcp@latest"],
+  "args": ["-y", "@dovilo-app/mcp@latest"],
   "env": { "DOVILO_API_KEY": "<API_KEY>" }
 }
 ```
@@ -116,7 +116,7 @@ Settings → MCP Servers:
 ### Custom (any MCP client)
 
 ```
-npx -y @dovilo/mcp@latest
+npx -y @dovilo-app/mcp@latest
 ```
 
 With `DOVILO_API_KEY` in the environment.

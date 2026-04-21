@@ -1,5 +1,5 @@
 {
-  "name": "@dovilo/mcp",
+  "name": "@dovilo-app/mcp",
   "version": "0.1.0",
   "description": "Model Context Protocol (MCP) bridge for Dovilo Desktop. Lets Cursor, Claude Code, Claude Desktop, and other AI agents run queued tasks from the Dovilo desktop app.",
   "keywords": [
