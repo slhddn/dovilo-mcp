@@ -53,7 +53,7 @@ export async function probeDesktopPort(host: string = '127.0.0.1'): Promise<numb
 export async function forwardMessage(
   config: Required<BridgeConfig>,
   body: string,
-): Promise<string> {
+): Promise<string | null> {
   return new Promise((resolve, reject) => {
     const req = httpRequest(
       {
@@ -79,6 +79,14 @@ export async function forwardMessage(
           }
           if ((res.statusCode ?? 500) >= 500) {
             reject(new Error(`Dovilo Desktop returned HTTP ${res.statusCode}: ${data}`));
+            return;
+          }
+          // JSON-RPC 2.0 notifications get no reply. Desktop signals this with
+          // HTTP 204 (or an empty 200). Return null — caller MUST NOT write a
+          // stdout line, because strict MCP clients (e.g. Claude Desktop's Zod
+          // schema) reject empty/invalid envelopes.
+          if (res.statusCode === 204 || data.length === 0) {
+            resolve(null);
             return;
           }
           resolve(data);

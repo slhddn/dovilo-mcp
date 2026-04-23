@@ -54,6 +54,8 @@ async function main(): Promise<void> {
 
     try {
       const response = await forwardMessage(config, line);
+      // Notifications return null — MUST NOT emit a stdout line (JSON-RPC 2.0).
+      if (response === null) continue;
       // MCP stdio framing: newline-delimited JSON (single line per message).
       process.stdout.write(response.trim() + '\n');
     } catch (err) {
@@ -62,20 +64,27 @@ async function main(): Promise<void> {
         fatal(UNAUTHORIZED_KEY_MESSAGE, EXIT_CODE_UNAUTHORIZED);
       }
       // Soft errors are returned to the agent as a JSON-RPC error so the tool
-      // call fails gracefully instead of crashing the whole session.
+      // call fails gracefully — unless the original message was a notification
+      // (no id), in which case we log to stderr and stay silent on stdout.
       try {
-        const parsed = JSON.parse(line) as { id?: string | number | null };
-        const id = parsed?.id ?? null;
-        const envelope = {
-          jsonrpc: '2.0',
-          id,
-          error: {
-            code: -32000,
-            message,
-            data: { domainCode: 'BRIDGE_ERROR' },
-          },
-        };
-        process.stdout.write(JSON.stringify(envelope) + '\n');
+        const parsed = JSON.parse(line) as { id?: string | number | null; method?: string };
+        const isNotification =
+          parsed?.id === undefined ||
+          (typeof parsed?.method === 'string' && parsed.method.startsWith('notifications/'));
+        if (isNotification) {
+          process.stderr.write(`[@dovilo-app/mcp] notification error (suppressed): ${message}\n`);
+        } else {
+          const envelope = {
+            jsonrpc: '2.0',
+            id: parsed?.id ?? null,
+            error: {
+              code: -32000,
+              message,
+              data: { domainCode: 'BRIDGE_ERROR' },
+            },
+          };
+          process.stdout.write(JSON.stringify(envelope) + '\n');
+        }
       } catch {
         process.stderr.write(`[@dovilo-app/mcp] ${message}\n`);
       }
